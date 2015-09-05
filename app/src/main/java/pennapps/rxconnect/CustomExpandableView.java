@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by devanshk on 7/17/15.
@@ -65,6 +66,13 @@ public class CustomExpandableView extends RelativeLayout {
                     CustomExpandableView.this.collapse();
                 } else {
                     CustomExpandableView.this.expand();
+
+                    //Collapse all the other views
+                    UUID tag = (UUID)v.getTag(R.id.ExpandID);
+                    for (CustomExpandableView mv : MedFragment.medViews){
+                        if (mv.contentLayout.isShown() && mv.clickableLayout!=v)
+                            mv.collapse();
+                    }
                 }
             }
         });
@@ -147,7 +155,7 @@ public class CustomExpandableView extends RelativeLayout {
         this.rotateAnimator.setInterpolator(new LinearInterpolator());
         this.rotateAnimator.setRepeatCount(0);
         this.rotateAnimator.setFillAfter(true);
-        this.rotateAnimator.setDuration(400L);
+        this.rotateAnimator.setDuration(300L);
         this.rightIcon.startAnimation(this.rotateAnimator);
         this.animator.start();
     }
@@ -160,7 +168,7 @@ public class CustomExpandableView extends RelativeLayout {
         this.rotateAnimator.setInterpolator(new LinearInterpolator());
         this.rotateAnimator.setRepeatCount(0);
         this.rotateAnimator.setFillAfter(true);
-        this.rotateAnimator.setDuration(400L);
+        this.rotateAnimator.setDuration(300L);
         ValueAnimator mAnimator = this.slideAnimator(finalHeight, 0);
         mAnimator.addListener(new Animator.AnimatorListener() {
             public void onAnimationEnd(Animator animator) {
@@ -182,7 +190,7 @@ public class CustomExpandableView extends RelativeLayout {
 
     private ValueAnimator slideAnimator(int start, int end) {
         ValueAnimator animator = ValueAnimator.ofInt(new int[]{start, end});
-        animator.setDuration(400L);
+        animator.setDuration(300L);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 int value = ((Integer)valueAnimator.getAnimatedValue()).intValue();

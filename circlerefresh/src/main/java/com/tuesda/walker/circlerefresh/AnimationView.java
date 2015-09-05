@@ -382,7 +382,7 @@ public class AnimationView extends View {
     }
 
 
-    private static long REL_DRAG_DUR = 200;
+    private static long REL_DRAG_DUR = 100;
 
     private long mStart;
     private long mStop;
@@ -405,7 +405,7 @@ public class AnimationView extends View {
         return Math.min(ratio, 1);
     }
 
-    private static long SPRING_DUR = 200;
+    private static long SPRING_DUR = 125;
     private long mSprStart;
     private long mSprStop;
 
@@ -427,7 +427,7 @@ public class AnimationView extends View {
         return Math.min(1, ratio);
     }
 
-    private static final long POP_BALL_DUR = 300;
+    private static final long POP_BALL_DUR = 150;
     private long mPopStart;
     private long mPopStop;
 
@@ -448,7 +448,7 @@ public class AnimationView extends View {
         return Math.min(ratio, 1);
     }
 
-    private static final long OUTER_DUR = 200;
+    private static final long OUTER_DUR = 125;
     private long mOutStart;
     private long mOutStop;
 
@@ -474,7 +474,7 @@ public class AnimationView extends View {
         return Math.min(ratio, 1);
     }
 
-    private static final long DONE_DUR = 1000;
+    private static final long DONE_DUR = 325;
     private long mDoneStart;
     private long mDoneStop;
 

@@ -1,13 +1,12 @@
 package pennapps.rxconnect;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
-    static MedFragment medFrag;
-    static UserInfoFragment userInfoFrag;
+public class LoginActivity extends AppCompatActivity {
+    static LoginFragment loginFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +16,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         getSupportActionBar().hide();
 
-        medFrag = new MedFragment();
-        userInfoFrag = new UserInfoFragment();
+        loginFrag = new LoginFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment, medFrag).commit();
+                .add(R.id.fragment, loginFrag).commit();
     }
 
 

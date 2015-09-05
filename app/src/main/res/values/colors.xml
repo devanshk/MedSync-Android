@@ -2,4 +2,6 @@
 <resources>
     <color name="primary">#F44336</color>
     <color name="dark_primary">#D32F2F</color>
+    <color name="dropdown_background">#f7f7f7</color>
+    <color name="light_gray">#f1f1f1</color>
 </resources>
