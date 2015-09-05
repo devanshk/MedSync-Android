@@ -6,8 +6,85 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-
     >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+
+        android:layout_height="110dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        >
+
+
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:background="@color/dark_primary"
+            />
+
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_width="fill_parent"
+            android:layout_height="110dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:text="John Doe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32dp"
+                android:textColor="@android:color/white"
+                />
+
+            <TextView
+                android:text="Male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:text="22 years old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:textColor="@android:color/white"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+    <TextView
+        android:layout_marginTop="24dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1234 Main St."
+        android:textSize="24dp"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="West Bloomfield, MI 48322"
+        android:textSize="24dp"
+        android:textColor="@android:color/white"
+        />
 
 
 
