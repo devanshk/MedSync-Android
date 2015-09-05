@@ -13,6 +13,7 @@ import android.view.ViewGroup;
  */
 public class LoginFragment extends Fragment {
     View login;
+    
 
     public LoginFragment() {
     }
