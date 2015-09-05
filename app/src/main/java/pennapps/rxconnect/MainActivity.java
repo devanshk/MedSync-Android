@@ -1,27 +1,33 @@
 package pennapps.rxconnect;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewParent;
 
 public class MainActivity extends AppCompatActivity {
     static MedFragment medFrag;
-    static UserInfoFragment userInfoFrag;
+    static UserCardsFragment userInfoFrag;
+
+    static ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_background));
         getSupportActionBar().setElevation(0);
         getSupportActionBar().hide();
 
         medFrag = new MedFragment();
-        userInfoFrag = new UserInfoFragment();
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment, medFrag).commit();
+        userInfoFrag = new UserCardsFragment();
+        mViewPager = (ViewPager)findViewById(R.id.container);
+        mViewPager.setAdapter(new ScreenSlidePagerAdapter(getSupportFragmentManager()));
     }
 
 
@@ -46,4 +52,28 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    /**
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * sequence.
+     */
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position==1)
+                return userInfoFrag;
+            return medFrag;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
 }

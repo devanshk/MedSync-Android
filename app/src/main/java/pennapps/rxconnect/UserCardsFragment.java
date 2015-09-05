@@ -32,8 +32,6 @@ public class UserCardsFragment extends Fragment {
         contacts.add(new Contact("Dr. Goldman, MD", "Family Physician", "Beaumont Hospital", 2));
         contacts.add(new Contact("Jon Li, PharmD", "Pharmacist", "CVS Pharmacy", 3));
 
-
-
         lstContacts.setAdapter(new ContactAdapter(getActivity(), R.layout.item_contact, contacts));
 
         return v;
