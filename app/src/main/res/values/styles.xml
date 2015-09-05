@@ -6,4 +6,12 @@
         <item name="android:windowActionBarOverlay">true</item>
     </style>
 
+    <!-- Use this style name to override the default style -->
+    <style name="ExpandableView_TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">start</item>
+    </style>
+
 </resources>
