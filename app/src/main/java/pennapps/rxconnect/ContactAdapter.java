@@ -1,16 +1,16 @@
 package pennapps.rxconnect;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
-/**
- * Created by Dominic on 9/5/2015.
- */
 public class ContactAdapter extends ArrayAdapter<Contact> {
 
     Context context;
@@ -27,11 +27,24 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         if (convertView==null)
             convertView = View.inflate(context, R.layout.item_contact, null);
 
+        int drawableId = -1;
+
         Contact contact = listContact.get(position);
+
+
+        try {
+            Class res = R.drawable.class;
+            Field field = res.getField("p" + Integer.toString(contact.pic));
+            drawableId = field.getInt(null);
+        }
+        catch (Exception e) {
+            Log.e("MyTag", "Failure to get drawable id.", e);
+        }
 
         ((TextView)convertView.findViewById(R.id.name)).setText(contact.name);
         ((TextView)convertView.findViewById(R.id.field1)).setText(contact.field1);
         ((TextView)convertView.findViewById(R.id.field2)).setText(contact.field2);
+        ((ImageView)convertView.findViewById(R.id.pic)).setImageResource(drawableId);
 
         return convertView;
     }

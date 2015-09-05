@@ -28,9 +28,9 @@ public class UserCardsFragment extends Fragment {
         lstContacts.setDivider(null);
 
         ArrayList<Contact> contacts = new ArrayList<Contact>();
-        contacts.add(new Contact("Dom", "field1", "field2"));
-        contacts.add(new Contact("Chris", "field1", "field2"));
-        contacts.add(new Contact("Harry", "field1", "field2"));
+        contacts.add(new Contact("Dominic Dabish", "Male", "22 years old", 1));
+        contacts.add(new Contact("Dr. Goldman, MD", "Family Physician", "Beaumont Hospital", 2));
+        contacts.add(new Contact("Jon Li, PharmD", "Pharmacist", "CVS Pharmacy", 3));
 
 
 
