@@ -1,8 +1,11 @@
 package pennapps.rxconnect;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,5 +35,15 @@ public class LoginFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void call(String number) {
+        try {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:"+number));
+            startActivity(callIntent);
+        } catch (ActivityNotFoundException e) {
+            Log.e("fail", "Call failed", e);
+        }
     }
 }

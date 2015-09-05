@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         userCardsFrag = new UserCardsFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment, userCardsFrag).commit();
+                .add(R.id.fragment, loginFrag).commit();
     }
 
 

@@ -14,7 +14,8 @@
         android:layout_width="fill_parent"
         android:layout_height="140dp"
         android:src="@drawable/logo"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="-28dp"/>
 
     <LinearLayout
         android:layout_width="fill_parent"

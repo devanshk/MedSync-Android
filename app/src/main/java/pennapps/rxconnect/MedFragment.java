@@ -1,12 +1,15 @@
 package pennapps.rxconnect;
 
+import android.annotation.TargetApi;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,6 +65,7 @@ public class MedFragment extends Fragment {
         return v;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     View generatePrescriptionView(String medication, String directions, String doctorNote, Integer refills){
         CustomExpandableView v = new CustomExpandableView(getActivity());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -70,11 +74,36 @@ public class MedFragment extends Fragment {
         v.setBackgroundResource(R.color.primary);
         v.fillData(0, medication, true);
 
-        View i = View.inflate(getActivity(),R.layout.item_directions,null);
+        v.setElevation(2.5f);
+
+        View i = View.inflate(getActivity(), R.layout.item_directions,null);
         ((TextView)i.findViewById(R.id.slot)).setText(directions);
         v.addContentView(i);
         i = View.inflate(getActivity(),R.layout.item_doctorsnote,null);
         ((TextView)i.findViewById(R.id.slot)).setText(doctorNote);
+        v.addContentView(i);
+
+        i = View.inflate(getActivity(),R.layout.item_reminders,null);
+        View j = i.findViewById(R.id.button_background);
+        j.setTag(R.id.Activated, true);
+        j.setTag(R.id.TextView,i.findViewById(R.id.remind_text));
+        j.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView remindText = (TextView)v.getTag(R.id.TextView);
+                Boolean activated = (Boolean)v.getTag(R.id.Activated);
+                if (activated){
+                    remindText.setText("Don't Remind Me");
+                    ((ImageView)v).setImageResource(R.drawable.alarm_inactive);
+                    v.setTag(R.id.Activated,false);
+                }
+                else {
+                    remindText.setText("Remind Me");
+                    ((ImageView)v).setImageResource(R.drawable.alarm_active);
+                    v.setTag(R.id.Activated,true);
+                }
+            }
+        });
         v.addContentView(i);
 
         v.setTag(R.id.ExpandID, UUID.randomUUID());
