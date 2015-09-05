@@ -5,6 +5,14 @@ android {
     buildToolsVersion "23.0.1"
     useLibrary 'org.apache.http.legacy'
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
     defaultConfig {
         applicationId "pennapps.rxconnect"
         minSdkVersion 19
@@ -23,7 +31,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-
     compile project(':circlerefresh')
     compile 'com.loopj.android:android-async-http:1.4.8'
+    compile files('libs/commons-codec-1.9.jar')
+    compile files('libs/commons-logging-1.2.jar')
+    compile files('libs/fluent-hc-4.5.jar')
+    compile files('libs/httpclient-4.5.jar')
+    compile files('libs/httpclient-cache-4.5.jar')
+    compile files('libs/httpclient-win-4.5.jar')
+    compile files('libs/httpcore-4.4.1.jar')
+    compile files('libs/httpmime-4.5.jar')
+    compile files('libs/jna-4.1.0.jar')
+    compile files('libs/jna-platform-4.1.0.jar')
 }

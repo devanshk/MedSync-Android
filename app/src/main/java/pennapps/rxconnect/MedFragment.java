@@ -11,6 +11,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tuesda.walker.circlerefresh.CircleRefreshLayout;
 
+import org.apache.http.Header;
+
 /**
  * Created by devanshk on 9/5/15.
  */
@@ -29,15 +31,20 @@ public class MedFragment extends Fragment {
         mRefreshLayout.setOnRefreshListener(new CircleRefreshLayout.OnCircleRefreshListener() {
             @Override
             public void completeRefresh() {
-
+                System.out.println("Completed Refresh.");
             }
 
             @Override
             public void refreshing() {
-
+                populateData();
             }
         });
 
+        return v;
+    }
+
+    View generatePrescriptionView(String name, String directions, String doctorNote){
+        View v = new CustomExpandableView(getActivity());
         return v;
     }
 
@@ -53,11 +60,16 @@ public class MedFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 // called when response HTTP status is "200 OK"
+                System.out.println("Response="+response);
+                try{ Thread.sleep(1000);} catch(Exception e){e.printStackTrace();}
+                System.out.println("Done sleeping. Finishing Refresh.");
+                MedFragment.mRefreshLayout.finishRefreshing();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                MedFragment.mRefreshLayout.finishRefreshing();
             }
 
             @Override
