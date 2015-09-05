@@ -43,7 +43,7 @@ public class MedFragment extends Fragment {
         return v;
     }
 
-    View generatePrescriptionView(String name, String directions, String doctorNote){
+    View generatePrescriptionView(String medication, String directions, String doctorNote){
         View v = new CustomExpandableView(getActivity());
         return v;
     }
