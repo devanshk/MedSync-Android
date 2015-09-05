@@ -25,8 +25,13 @@ public class UserCardsFragment extends Fragment {
 
         lstContacts = (ListView) v.findViewById(R.id.lstContacts);
 
+        lstContacts.setDivider(null);
+
         ArrayList<Contact> contacts = new ArrayList<Contact>();
         contacts.add(new Contact("Dom", "field1", "field2"));
+        contacts.add(new Contact("Chris", "field1", "field2"));
+        contacts.add(new Contact("Harry", "field1", "field2"));
+
 
 
         lstContacts.setAdapter(new ContactAdapter(getActivity(), R.layout.item_contact, contacts));
