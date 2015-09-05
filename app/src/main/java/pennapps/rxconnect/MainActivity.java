@@ -8,6 +8,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
     static LoginFragment loginFrag;
     static MedFragment mainFrag;
+    static UserInfoFragment userInfoFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
         loginFrag = new LoginFragment();
         mainFrag = new MedFragment();
+        userInfoFrag = new UserInfoFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment,loginFrag).commit();
+                .add(R.id.fragment,userInfoFrag).commit();
     }
 
 
