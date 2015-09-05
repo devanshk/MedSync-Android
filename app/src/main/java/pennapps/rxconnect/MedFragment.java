@@ -15,6 +15,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.tuesda.walker.circlerefresh.CircleRefreshLayout;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -27,6 +29,8 @@ public class MedFragment extends Fragment {
     static CircleRefreshLayout mRefreshLayout;
     public static ArrayList<CustomExpandableView> medViews = new ArrayList<CustomExpandableView>();
     static LinearLayout mLinearLayout;
+
+    static String data; //Dirty hackathon code. Don't do this.
 
     public MedFragment() {
     }
@@ -87,7 +91,7 @@ public class MedFragment extends Fragment {
 
     void populateData(){
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://45.79.141.245:3000/api/patient/55eab073c280131934217955.json", new AsyncHttpResponseHandler() {
+        client.get("http://45.79.141.245:3000/api/patient/55ead2a8f68af9eb02250710.json", new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -95,13 +99,14 @@ public class MedFragment extends Fragment {
             }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+            public void onSuccess(int statusCode, Header[] headers, final byte[] response) {
                 // called when response HTTP status is "200 OK"
-                System.out.println("Response="+new String(response));
+                System.out.println("Response=" + new String(response));
                 DelayTask dt = new DelayTask(getActivity(), 1000, new Runnable() {
                     @Override
                     public void run() {
                         System.out.println("Done sleeping. Finishing Refresh.");
+                        parseData(new String(response));
                         MedFragment.mRefreshLayout.finishRefreshing();
                     }
                 });
@@ -118,6 +123,33 @@ public class MedFragment extends Fragment {
             @Override
             public void onRetry(int retryNo) {
                 // called when request is retried
+            }
+        });
+    }
+
+    void parseData(String d){
+        data = d;
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+            try {
+                clearMedViews();
+                JSONObject jsonObject = new JSONObject(data);
+                System.out.println("jsonObject="+jsonObject);
+                JSONArray jsonArray = jsonObject.getJSONArray("prescriptions");
+                System.out.println("jsonArray="+jsonArray);
+                for (int i=0; i<jsonArray.length();i++) {
+                    JSONObject jo = jsonArray.getJSONObject(i);
+                    System.out.println("jo=" + jo);
+                    String med = jo.getString("medication");
+                    String direc = jo.getString("directions");
+                    Integer refills = jo.getInt("refills");
+                    mLinearLayout.addView(
+                            generatePrescriptionView(med, direc, "Suck it up.", refills));
+                }
+            } catch(Exception e){e.printStackTrace();}
+
             }
         });
     }
