@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         userInfoFrag = new UserInfoFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment,userInfoFrag).commit();
+                .add(R.id.fragment, loginFrag).commit();
     }
 
 
