@@ -31,3 +31,9 @@ proguard/
 
 #Extra
 MedSync-Android.iml
+*.iml
+.idea/libraries/appcompat_v7_23_0_1.xml
+.idea/workspace.xml
+.idea/libraries/support_v4_23_0_1.xml
+.idea/libraries/appcompat_v7_23_0_1.xml
+.idea/libraries/support_v4_23_0_1.xml
