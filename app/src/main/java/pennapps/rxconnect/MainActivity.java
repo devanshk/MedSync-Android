@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    static LoginFragment loginFrag;
+    static MedFragment mainFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +16,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_background));
         getSupportActionBar().setElevation(0);
         getSupportActionBar().hide();
+
+        loginFrag = new LoginFragment();
+        mainFrag = new MedFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment,loginFrag).commit();
     }
 
 

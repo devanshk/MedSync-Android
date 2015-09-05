@@ -1,7 +1,5 @@
 package pennapps.rxconnect;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +25,9 @@ public class LoginFragment extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Detected Click");
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment, new MedFragment()).commit();
             }
         });
 
