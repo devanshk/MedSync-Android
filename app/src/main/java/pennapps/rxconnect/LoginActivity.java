@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 public class LoginActivity extends AppCompatActivity {
     static LoginFragment loginFrag;
+    static UserCardsFragment userCardsFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,9 +18,10 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         loginFrag = new LoginFragment();
+        userCardsFrag = new UserCardsFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment, loginFrag).commit();
+                .add(R.id.fragment, userCardsFrag).commit();
     }
 
 
