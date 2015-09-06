@@ -3,4 +3,7 @@
     <item type="id" name="ExpandID"/>
     <item type="id" name="Activated"/>
     <item type="id" name="TextView"/>
+    <item type="id" name="Alarm"/>
+    <item type="id" name="Med"/>
+    <item type="id" name="Instructions"/>
 </resources>

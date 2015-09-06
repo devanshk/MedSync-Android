@@ -1,6 +1,11 @@
 package pennapps.rxconnect;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,8 +28,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.Executors;
+
+import br.com.goncalves.pugnotification.notification.PugNotification;
 
 /**
  * Created by devanshk on 9/5/15.
@@ -34,7 +43,13 @@ public class MedFragment extends Fragment {
     public static ArrayList<CustomExpandableView> medViews = new ArrayList<CustomExpandableView>();
     static LinearLayout mLinearLayout;
 
+    public static AlertDialog mAlertDialog;
+    public static AlertDialog.Builder builder;
+
     static String data; //Dirty hackathon code. Don't do this.
+    String curMed;
+    String curInstructions;
+    long curTime;
 
     public MedFragment() {
     }
@@ -59,13 +74,8 @@ public class MedFragment extends Fragment {
             }
         });
 
-        //My gosh, the coding gods are angry.
-
-        View plc = new View(getActivity());
-        //RelativeLayout.LayoutParams
-
-        for (int i=0;i<4;i++){
-            mLinearLayout.addView(generatePrescriptionView("Drugs","Take them","Be safe",0));
+        for (int i=0;i<1;i++){
+            mLinearLayout.addView(generatePrescriptionView("Tylenol","Take them","Be safe",0));
         }
 
         return v;
@@ -91,7 +101,9 @@ public class MedFragment extends Fragment {
 
         i = View.inflate(getActivity(),R.layout.item_reminders,null);
         View j = i.findViewById(R.id.button_background);
-        j.setTag(R.id.Activated, true);
+        j.setTag(R.id.Med,medication);
+        j.setTag(R.id.Instructions,directions);
+        j.setTag(R.id.Activated, false);
         j.setTag(R.id.TextView,i.findViewById(R.id.remind_text));
         j.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +118,10 @@ public class MedFragment extends Fragment {
                 else {
                     remindText.setText("Remind Me");
                     ((ImageView)v).setImageResource(R.drawable.alarm_active);
-                    v.setTag(R.id.Activated,true);
+                    v.setTag(R.id.Activated, true);
+                    long tar = parseTimeFromDescription("" + v.getTag(R.id.Instructions));
+                    if (tar > 0)
+                        createReminder("" + v.getTag(R.id.Med), "" + v.getTag(R.id.Instructions), tar);
                 }
             }
         });
@@ -167,37 +182,113 @@ public class MedFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-            try {
                 clearMedViews();
-                JSONObject jsonObject = new JSONObject(data);
-                System.out.println("jsonObject="+jsonObject);
-                JSONArray jsonArray = jsonObject.getJSONArray("prescriptions");
-                System.out.println("jsonArray="+jsonArray);
-                for (int i=0; i<jsonArray.length();i++) {
-                    JSONObject jo = jsonArray.getJSONObject(i);
-                    System.out.println("jo=" + jo);
-                    String med = jo.getString("medication");
-                    String direc = jo.getString("directions");
-                    Integer refills = jo.getInt("refills");
-                    String doctorNote = jo.getString("doctor_notes");
-                    mLinearLayout.addView(
-                            generatePrescriptionView(med, direc, doctorNote, refills));
-                }
 
-                //Test Alerts
+                String desc = "1 Pill with water at 05:16 daily";
 
+                mLinearLayout.addView(
+                        generatePrescriptionView("Claritin", desc, "Do not take immediately after Tylenol.", 3)
+                );
 
-                DelayTask d = new DelayTask(getActivity(), 750, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (medViews.size() > 0)
-                            medViews.get(0).expand();
+                try {
+                    JSONObject jsonObject = new JSONObject(data);
+                    System.out.println("jsonObject=" + jsonObject);
+                    JSONArray jsonArray = jsonObject.getJSONArray("prescriptions");
+                    System.out.println("jsonArray=" + jsonArray);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jo = jsonArray.getJSONObject(i);
+                        System.out.println("jo=" + jo);
+                        String med = jo.getString("medication");
+                        String direc = jo.getString("directions");
+                        Integer refills = jo.getInt("refills");
+                        String doctorNote = jo.getString("doctor_notes");
+                        mLinearLayout.addView(
+                                generatePrescriptionView(med, direc, doctorNote, refills));
                     }
-                });
-                d.executeOnExecutor(Executors.newSingleThreadExecutor());
-            } catch(Exception e){e.printStackTrace();}
+
+                    //Test Alerts
+
+
+                /*Intent i = new Intent(getActivity(),MainActivity.class);
+                i.putExtra("MedicineName","Tylenol");
+                PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 5, i, PendingIntent.FLAG_ONE_SHOT);
+
+                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent); */
+
+                    DelayTask d = new DelayTask(getActivity(), 750, new Runnable() {
+                        @Override
+                        public void run() {
+                            if (medViews.size() > 0)
+                                medViews.get(0).expand();
+                        }
+                    });
+                    d.executeOnExecutor(Executors.newSingleThreadExecutor());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+    }
+
+    long parseTimeFromDescription(String s){
+        //1 Pill with water at 11:17pm daily
+        try {
+            Integer hour = Integer.parseInt(
+                    s.substring(s.indexOf(":") - 2, s.indexOf(":")));
+            Integer minutes = Integer.parseInt(
+                    s.substring(s.indexOf(":") + 1, s.indexOf(":") + 3));
+            Date d = new Date();
+            d.setHours(hour);
+            d.setMinutes(minutes);
+            d.setSeconds(0);
+
+            return d.getTime();
+        } catch(Exception e){return 0;}
+    }
+
+    void createReminder(String med, final String instructions, long tarTime){
+        View dialogView = View.inflate(getActivity(), R.layout.dialog_alert, null);
+        ImageView icon = (ImageView) dialogView.findViewById(R.id.medicine_icon);
+        TextView title = (TextView) dialogView.findViewById(R.id.medicine_title);
+        TextView subtitle = (TextView) dialogView.findViewById(R.id.medicine_instructions);
+        View okay = dialogView.findViewById(R.id.alert_okay);
+        View snooze = dialogView.findViewById(R.id.alert_snooze);
+
+        icon.setImageResource(ManUtils.medIcon(med));
+
+        snooze.setTag(R.id.Med, med);
+        snooze.setTag(R.id.Instructions, instructions);
+
+        title.setText(med);
+        subtitle.setText(instructions);
+
+        okay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog.dismiss();
+            }
+        });
+
+        snooze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlertDialog.dismiss();
+                createReminder("" + v.getTag(R.id.Med), "" + v.getTag(R.id.Instructions), System.currentTimeMillis() + 2500);
+            }
+        });
+
+        builder = new AlertDialog.Builder(getActivity());
+        builder.setView(dialogView);
+
+        DelayTask delayTask = new DelayTask(getActivity(), tarTime - System.currentTimeMillis(), new Runnable() {
+            @Override
+            public void run() {
+                mAlertDialog = builder.show();
+            }
+        });
+        delayTask.executeOnExecutor(Executors.newSingleThreadExecutor());
+
+        System.out.println("Reminder Created.");
     }
 }

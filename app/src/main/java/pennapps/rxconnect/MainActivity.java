@@ -1,5 +1,6 @@
 package pennapps.rxconnect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewParent;
+
+import br.com.goncalves.pugnotification.notification.PugNotification;
 
 public class MainActivity extends AppCompatActivity {
     static MedFragment medFrag;
@@ -53,6 +56,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==5){ //Alarm Request Code
+            PugNotification.with(this)
+                    .load()
+                    .identifier(R.id.Alarm)
+                    .title("Drugs")
+                    .message("Eat your drugs. Now.")
+                    .smallIcon(R.drawable.pill_icon)
+                    .simple()
+                    .build();
+        }
+    }
 
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in

@@ -30,10 +30,11 @@ public class UserCardsFragment extends Fragment {
         lstContacts = (ListView) v.findViewById(R.id.lstContacts);
 
         if(!ManUtils.populatedContacts) {
+            ManUtils.populatedContacts=true;
             lstContacts.setDivider(null);
 
-            contacts.add(new Contact("Jason Argonaut", "Male", "30 years old", 1));
-            contacts.add(new Contact("Dr. Goldman, MD", "Family Physician", "Beaumont Hospital", 2));
+            contacts.add(new Contact("Wilma Johnson", "Female", "70 years old", 1));
+            contacts.add(new Contact("Dr.Rosalyn Espinoza, MD", "Family Physician", "Beaumont Hospital", 2));
             contacts.add(new Contact("Jon Li, PharmD", "Pharmacist", "CVS Pharmacy", 3));
         }
 
