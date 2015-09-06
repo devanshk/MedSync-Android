@@ -1,6 +1,9 @@
 package pennapps.rxconnect;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +34,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
         Contact contact = listContact.get(position);
 
-
         try {
             Class res = R.drawable.class;
             Field field = res.getField("p" + Integer.toString(contact.pic));
@@ -46,6 +48,35 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         ((TextView)convertView.findViewById(R.id.field2)).setText(contact.field2);
         ((ImageView)convertView.findViewById(R.id.pic)).setImageResource(drawableId);
 
+        if (position!=0){
+            convertView.findViewById(R.id.accent).setVisibility(View.GONE);
+        }
+        if (position==1)
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    call("3037791367");
+                }
+            });
+
+        else
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    call("3133120792");
+                }
+            });
+
         return convertView;
+    }
+
+    private void call(String number) {
+        try {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + number));
+            UserCardsFragment.parent.startActivity(callIntent);
+        } catch (ActivityNotFoundException e) {
+            Log.e("fail", "Call failed", e);
+        }
     }
 }

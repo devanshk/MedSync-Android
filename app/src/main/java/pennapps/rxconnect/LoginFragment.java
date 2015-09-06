@@ -36,14 +36,4 @@ public class LoginFragment extends Fragment {
 
         return v;
     }
-
-    private void call(String number) {
-        try {
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:"+number));
-            startActivity(callIntent);
-        } catch (ActivityNotFoundException e) {
-            Log.e("fail", "Call failed", e);
-        }
-    }
 }

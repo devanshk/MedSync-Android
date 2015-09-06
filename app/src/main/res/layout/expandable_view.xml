@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"/>
+            android:layout_marginLeft="-4dp"/>
 
         <TextView
             android:id="@+id/expandable_view_title"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="-8dp"
             android:layout_toRightOf="@id/expandable_view_image"/>
 
         <ImageView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginRight="-8dp"
             android:src="@drawable/ic_expandable_view_plus"/>
 
         <View

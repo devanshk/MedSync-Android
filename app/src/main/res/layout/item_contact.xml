@@ -4,75 +4,86 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="130dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:paddingTop="16dp"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:elevation="1dp"
-    android:clickable="true"
-    >
+    android:clickable="true">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/shape"
-        android:padding="16dp"
-        >
-
-
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/dark_primary"
-            android:id="@+id/pic"
-            />
-
+        android:layout_height="130dp">
 
         <LinearLayout
-            android:layout_marginLeft="16dp"
             android:layout_width="fill_parent"
-            android:layout_height="110dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            >
+            android:layout_height="130dp"
+            android:background="@drawable/shape"
+            android:paddingTop="15dp"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="16dp">
 
-            <TextView
-                android:text="John Doe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="6dp"
-                android:textSize="25dp"
-                android:textColor="#707070"
-                android:id="@+id/name"
-                />
 
-            <TextView
-                android:text="Male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
-                android:textSize="21dp"
-                android:textColor="#707070"
-                android:id="@+id/field1"
-                />
-            <TextView
-                android:text="22 years old"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="21dp"
-                android:textColor="#707070"
-                android:id="@+id/field2"
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/dark_primary"
+                android:id="@+id/pic"
                 />
 
 
+            <LinearLayout
+                android:layout_marginLeft="16dp"
+                android:layout_width="fill_parent"
+                android:layout_height="110dp"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:text="John Doe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp"
+                    android:textSize="25dp"
+                    android:textColor="#707070"
+                    android:id="@+id/name"
+                    />
+
+                <TextView
+                    android:text="Male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:textSize="21dp"
+                    android:textColor="#707070"
+                    android:id="@+id/field1"
+                    />
+                <TextView
+                    android:text="22 years old"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="21dp"
+                    android:textColor="#707070"
+                    android:id="@+id/field2"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:id="@+id/accent"
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:background="@color/primary"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_alignParentBottom="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
 

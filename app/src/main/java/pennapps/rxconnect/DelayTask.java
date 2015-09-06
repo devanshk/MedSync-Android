@@ -28,7 +28,7 @@ public class DelayTask extends AsyncTask<Void,Integer,Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try{Thread.sleep(delay);} catch(Exception e){}
-        runnable.run();
+        parent.runOnUiThread(runnable);
         return null;
     }
 

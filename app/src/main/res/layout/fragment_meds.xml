@@ -32,4 +32,25 @@
 
     </com.tuesda.walker.circlerefresh.CircleRefreshLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-54dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="right">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_person_gray_18dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">>"
+            android:textSize="30sp"
+            android:textColor="#6f6f6f"/>
+    </LinearLayout>
+
 </LinearLayout>

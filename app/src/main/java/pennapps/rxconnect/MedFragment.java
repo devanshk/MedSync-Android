@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -58,6 +59,11 @@ public class MedFragment extends Fragment {
             }
         });
 
+        //My gosh, the coding gods are angry.
+
+        View plc = new View(getActivity());
+        //RelativeLayout.LayoutParams
+
         for (int i=0;i<4;i++){
             mLinearLayout.addView(generatePrescriptionView("Drugs","Take them","Be safe",0));
         }
@@ -72,7 +78,7 @@ public class MedFragment extends Fragment {
         lp.setMargins(15, 20, 15, 0);
         v.setLayoutParams(lp);
         v.setBackgroundResource(R.color.primary);
-        v.fillData(0, medication, true);
+        v.fillData(ManUtils.medIcon(medication), medication, true);
 
         v.setElevation(2.5f);
 
@@ -120,7 +126,7 @@ public class MedFragment extends Fragment {
 
     void populateData(){
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://45.79.141.245:3000/api/patient/55ead2a8f68af9eb02250710.json", new AsyncHttpResponseHandler() {
+        client.get("http://45.79.141.245:3000/api/patient/55eb89afd4ab099a65f8d61a.json", new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -174,11 +180,23 @@ public class MedFragment extends Fragment {
                     String med = jo.getString("medication");
                     String direc = jo.getString("directions");
                     Integer refills = jo.getInt("refills");
+                    String doctorNote = jo.getString("doctor_notes");
                     mLinearLayout.addView(
-                            generatePrescriptionView(med, direc, "Suck it up.", refills));
+                            generatePrescriptionView(med, direc, doctorNote, refills));
                 }
-            } catch(Exception e){e.printStackTrace();}
 
+                //Test Alerts
+
+
+                DelayTask d = new DelayTask(getActivity(), 750, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (medViews.size() > 0)
+                            medViews.get(0).expand();
+                    }
+                });
+                d.executeOnExecutor(Executors.newSingleThreadExecutor());
+            } catch(Exception e){e.printStackTrace();}
             }
         });
     }
